@@ -1,6 +1,10 @@
 <template>
-  <div>
-    <p>Some default layout content shared across all pages</p>
-    <slot />
+  <div class="flex items-start">
+    <div>
+    <Sidebar />
+    </div>
+    <div>
+      <slot />
+    </div>
   </div>
 </template>
