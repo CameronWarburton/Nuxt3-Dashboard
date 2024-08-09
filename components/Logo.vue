@@ -1,7 +1,5 @@
-<script setup>
-const loading = ref(false)
-</script>
-
 <template>
-    <div>Hello Logo</div>
+  <div class="overflow-hidden rounded-lg w-[45px]">
+    <img src="@/assets/logo.png" alt="Logo" />
+  </div>
 </template>
