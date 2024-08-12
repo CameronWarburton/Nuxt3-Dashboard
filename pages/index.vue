@@ -4,6 +4,6 @@ const loading = ref(false)
 
 <template>
     <div>
-        <Button>Click me</Button>
+        main page
     </div>
 </template>

@@ -31,7 +31,7 @@ const items = ref([
 <template>
   <div>
     <header
-      class="flex -center gap-2 p-4 hover:scale-[101%] transition cursor-pointer"
+      class="flex -center gap-2 p-4 hover:scale-[101%] transition cursor-pointer items-center"
     >
       <Logo />
       <p class="font-bold">Nuxt-Finance</p>
