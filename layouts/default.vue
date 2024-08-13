@@ -1,9 +1,7 @@
 <template>
   <div class="grid items-start lg:flex">
-    <div>
     <Sidebar />
-    </div>
-    <div>
+    <div class="p-8">
       <slot />
     </div>
   </div>

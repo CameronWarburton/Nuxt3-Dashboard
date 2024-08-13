@@ -16,13 +16,13 @@ const open = ref(true);
       />
       <div
         v-if="open"
-        class="absolute top-0 left-0 z-[999] w-full h-full h-screen bg-white"
+        class="absolute top-0 left-0 z-[999] w-full h-screen bg-white"
       >
         <Icon
-          class="absolute z-50 cursor-pointer right-4 top-4"
+          class="fixed z-50 cursor-pointer right-4 top-4"
           size="30"
           name="material-symbols:close"
-          @click="open = true"
+          @click="open = false"
         />
         <SidebarMenu />
       </div>
