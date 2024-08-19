@@ -4,11 +4,14 @@ const loading = ref(false);
 
 <template>
   <div>
-    <header>This is my header</header>
+    <header>
+      <p>Hi, Welcome back Cameron!</p>
+      <h1>Dashboard</h1>
+    </header>
     <main>
-      This is my main
-      <section>This is my section</section>
+      <div>Tabs: Today This week This month</div>
+      <section>Chart</section>
     </main>
-    <footer>This is my footer</footer>
+    <footer>I'll have 3 different cards</footer>
   </div>
 </template>
