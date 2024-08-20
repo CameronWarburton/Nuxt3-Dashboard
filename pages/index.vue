@@ -4,7 +4,7 @@ const loading = ref(false);
 const list = [
   {
     title: "Today",
-    component: resolveComponent("TabsToday") // custom component relative to Today
+    component: resolveComponent("TabsToday"), // custom component relative to Today
   },
   {
     title: "Week",
@@ -15,53 +15,70 @@ const list = [
   {
     title: "Year",
   },
-]
-const categories = ref([])
-const options = computed(() => (
-  {
-    chart: {
-        type: 'line',
-        animation: {
-          enable: false
-        }
+];
+let categories = ref({
+  'today': [],
+  'week': [],
+  'month': [],
+  'year': [],
+});
+let currentCategory = ref([
+  "Jan",
+  "Feb",
+  "Mar",
+  "Apr",
+  "May",
+  "Jun",
+  "Jul",
+  "Aug",
+  "Sep",
+  "Oct",
+  "Nov",
+  "Dec",
+]);
+const options = computed(() => ({
+  chart: {
+    type: "line",
+    animation: {
+      enable: false,
     },
+  },
+  title: {
+    text: "",
+  },
+  xAxis: {
+    gridLineColor: 'transparent',
+    categories: currentCategory,
+  },
+  yAxis: {
+    gridLineColor: 'transparent',
     title: {
-        text: ''
+      text: "Temperature (°C)",
     },
-    xAxis: {
-        categories: [
-            'Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep',
-            'Oct', 'Nov', 'Dec'
-        ]
+  },
+  plotOptions: {
+    line: {
+      dataLabels: {
+        enabled: true,
+      },
+      enableMouseTracking: false,
     },
-    yAxis: {
-        title: {
-            text: 'Temperature (°C)'
-        }
+  },
+  series: [
+    {
+      name: "Reggane",
+      data: [
+        16.0, 18.2, 23.1, 27.9, 32.2, 36.4, 39.8, 38.4, 35.5, 29.2, 22.0, 17.8,
+      ],
     },
-    plotOptions: {
-        line: {
-            dataLabels: {
-                enabled: true
-            },
-            enableMouseTracking: false
-        }
+    {
+      name: "Tallinn",
+      data: [
+        -2.9, -3.6, -0.6, 4.8, 10.2, 14.5, 17.6, 16.5, 12.0, 6.5, 2.0, -0.9,
+      ],
     },
-    series: [{
-        name: 'Reggane',
-        data: [
-            16.0, 18.2, 23.1, 27.9, 32.2, 36.4, 39.8, 38.4, 35.5, 29.2,
-            22.0, 17.8
-        ]
-    }, {
-        name: 'Tallinn',
-        data: [
-            -2.9, -3.6, -0.6, 4.8, 10.2, 14.5, 17.6, 16.5, 12.0, 6.5,
-            2.0, -0.9
-        ]
-    }]
-}
-))
+  ],
+}));
 </script>
 
 <template>
@@ -89,7 +106,7 @@ const options = computed(() => (
           :key="index"
           :value="item.title"
         >
-        <highchart :options="options" />
+          <highchart :options="options" />
         </TabsContent>
       </Tabs>
       <!-- <div class="flex items-center gap-3">
