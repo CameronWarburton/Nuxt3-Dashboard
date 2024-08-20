@@ -1,6 +1,67 @@
 <script setup>
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 const loading = ref(false);
-import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs'
+const list = [
+  {
+    title: "Today",
+    component: resolveComponent("TabsToday") // custom component relative to Today
+  },
+  {
+    title: "Week",
+  },
+  {
+    title: "Month",
+  },
+  {
+    title: "Year",
+  },
+]
+const categories = ref([])
+const options = computed(() => (
+  {
+    chart: {
+        type: 'line',
+        animation: {
+          enable: false
+        }
+    },
+    title: {
+        text: ''
+    },
+    xAxis: {
+        categories: [
+            'Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep',
+            'Oct', 'Nov', 'Dec'
+        ]
+    },
+    yAxis: {
+        title: {
+            text: 'Temperature (°C)'
+        }
+    },
+    plotOptions: {
+        line: {
+            dataLabels: {
+                enabled: true
+            },
+            enableMouseTracking: false
+        }
+    },
+    series: [{
+        name: 'Reggane',
+        data: [
+            16.0, 18.2, 23.1, 27.9, 32.2, 36.4, 39.8, 38.4, 35.5, 29.2,
+            22.0, 17.8
+        ]
+    }, {
+        name: 'Tallinn',
+        data: [
+            -2.9, -3.6, -0.6, 4.8, 10.2, 14.5, 17.6, 16.5, 12.0, 6.5,
+            2.0, -0.9
+        ]
+    }]
+}
+))
 </script>
 
 <template>
@@ -13,34 +74,24 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs'
       <div class="bg-neutral-200 h-[36px] w-[120px]"></div>
     </header>
     <main class="grid gap-4">
-  <Tabs default-value="today" class="w-[400px]">
-    <TabsList>
-      <TabsTrigger value="today">
-        Today
-      </TabsTrigger>
-      <TabsTrigger value="week">
-        This week
-      </TabsTrigger>
-      <TabsTrigger value="month">
-        This month
-      </TabsTrigger>
-      <TabsTrigger value="year">
-        This year
-      </TabsTrigger>
-    </TabsList>
-    <TabsContent value="today">
-      Today
-    </TabsContent>
-    <TabsContent value="week">
-      This week
-    </TabsContent>
-    <TabsContent value="month">
-      This month
-    </TabsContent>
-    <TabsContent value="year">
-      This year
-    </TabsContent>
-  </Tabs>
+      <Tabs default-value="Today" class="w-[400px]">
+        <TabsList>
+          <TabsTrigger
+            v-for="(item, index) in list"
+            :key="index"
+            :value="item.title"
+          >
+            {{ item.title }}
+          </TabsTrigger>
+        </TabsList>
+        <TabsContent
+          v-for="(item, index) in list"
+          :key="index"
+          :value="item.title"
+        >
+        <highchart :options="options" />
+        </TabsContent>
+      </Tabs>
       <!-- <div class="flex items-center gap-3">
         <div
           v-for="(item, index) in 3"
