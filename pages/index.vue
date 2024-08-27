@@ -16,11 +16,12 @@ const list = [
     title: "Year",
   },
 ];
+let data = ref([16.0, 18.2, 23.1, 27.9, 32.2, 36.4, 39.8, 38.4, 35.5, 29.2, 22.0, 17.8])
 let categories = ref({
-  'today': [],
-  'week': [],
-  'month': [],
-  'year': [],
+  today: [],
+  week: [],
+  month: [],
+  year: [],
 });
 let currentCategory = ref([
   "Jan",
@@ -43,39 +44,48 @@ const options = computed(() => ({
       enable: false,
     },
   },
+  legend: {
+    enabled: false
+  },
   title: {
     text: "",
   },
   xAxis: {
-    gridLineColor: 'transparent',
+    gridLineColor: "transparent",
     categories: currentCategory,
   },
   yAxis: {
-    gridLineColor: 'transparent',
+    gridLineColor: "transparent",
     title: {
-      text: "Temperature (°C)",
+      text: "",
     },
   },
   plotOptions: {
     line: {
-      dataLabels: {
-        enabled: true,
+      marker: {
+        enabled: false,
       },
-      enableMouseTracking: false,
+      dataLabels: {
+        enabled: false,
+      },
+      enableMouseTracking: true,
     },
   },
   series: [
+    // data
     {
-      name: "Reggane",
-      data: [
-        16.0, 18.2, 23.1, 27.9, 32.2, 36.4, 39.8, 38.4, 35.5, 29.2, 22.0, 17.8,
-      ],
-    },
-    {
-      name: "Tallinn",
-      data: [
-        -2.9, -3.6, -0.6, 4.8, 10.2, 14.5, 17.6, 16.5, 12.0, 6.5, 2.0, -0.9,
-      ],
+      name: "line",
+      lineWidth: '4px',
+      color: {
+        linearGradient: {},
+        stops: [
+          [0, 'rgba(252, 176, 69, 1)'],
+          [0.33, 'rgba(253, 29, 29, 1)'],
+          [0.66, 'rgba(131, 58, 180, 1)'],
+          [1, 'rgba(29, 217, 83, 1)'],
+        ]
+      },
+      data: data.value
     },
   ],
 }));
@@ -91,8 +101,8 @@ const options = computed(() => ({
       <div class="bg-neutral-200 h-[36px] w-[120px]"></div>
     </header>
     <main class="grid gap-4">
-      <Tabs default-value="Today" class="w-[400px]">
-        <TabsList>
+      <Tabs default-value="Today">
+        <TabsList class="max-w-[400px]">
           <TabsTrigger
             v-for="(item, index) in list"
             :key="index"
