@@ -16,7 +16,9 @@ const list = [
     title: "Year",
   },
 ];
-let data = ref([16.0, 18.2, 23.1, 27.9, 32.2, 36.4, 39.8, 38.4, 35.5, 29.2, 22.0, 17.8])
+let data = ref([
+  16.0, 18.2, 23.1, 27.9, 32.2, 36.4, 39.8, 38.4, 35.5, 29.2, 22.0, 17.8,
+]);
 let categories = ref({
   today: [],
   week: [],
@@ -45,7 +47,7 @@ const options = computed(() => ({
     },
   },
   legend: {
-    enabled: false
+    enabled: false,
   },
   title: {
     text: "",
@@ -75,20 +77,38 @@ const options = computed(() => ({
     // data
     {
       name: "line",
-      lineWidth: '4px',
+      lineWidth: "4px",
       color: {
         linearGradient: {},
         stops: [
-          [0, 'rgba(252, 176, 69, 1)'],
-          [0.33, 'rgba(253, 29, 29, 1)'],
-          [0.66, 'rgba(131, 58, 180, 1)'],
-          [1, 'rgba(29, 217, 83, 1)'],
-        ]
+          [0, "rgba(252, 176, 69, 1)"],
+          [0.33, "rgba(253, 29, 29, 1)"],
+          [0.66, "rgba(131, 58, 180, 1)"],
+          [1, "rgba(29, 217, 83, 1)"],
+        ],
       },
-      data: data.value
+      data: data.value,
     },
   ],
 }));
+
+const setCategory = (e) => {
+  let v = e.target.innerText.toLowerCase();
+}
+
+function generateRandomData(number = 7) {
+  let values = [];
+  for (let i = 0; i < number + 1; i++) {
+    values.push(Math.floor(Math.random() * 100));
+  }
+  console.log(values);
+  data.value = values;
+  return values;
+}
+
+onMounted(() => {
+  generateRandomData();
+});
 </script>
 
 <template>
@@ -101,7 +121,7 @@ const options = computed(() => ({
       <div class="bg-neutral-200 h-[36px] w-[120px]"></div>
     </header>
     <main class="grid gap-4">
-      <Tabs default-value="Today">
+      <Tabs default-value="Today" @click="setCategory">
         <TabsList class="max-w-[400px]">
           <TabsTrigger
             v-for="(item, index) in list"
