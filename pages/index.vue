@@ -16,29 +16,66 @@ const list = [
     title: "Year",
   },
 ];
-let data = ref([
-  16.0, 18.2, 23.1, 27.9, 32.2, 36.4, 39.8, 38.4, 35.5, 29.2, 22.0, 17.8,
-]);
+
+// make categories
 let categories = ref({
-  today: [],
-  week: [],
-  month: [],
-  year: [],
+  today: [
+    "00:00",
+    "01:00",
+    "02:00",
+    "03:00",
+    "04:00",
+    "05:00",
+    "06:00",
+    "07:00",
+    "08:00",
+    "09:00",
+    "10:00",
+    "11:00",
+    "12:00",
+    "13:00",
+    "14:00",
+    "15:00",
+    "16:00",
+    "17:00",
+    "18:00",
+    "19:00",
+    "20:00",
+    "21:00",
+    "22:00",
+    "23:00",
+  ],
+  week: [
+    "Sunday",
+    "Monday",
+    "Tuesday",
+    "Wednesday",
+    "Thursday",
+    "Friday",
+    "Saturday",
+  ],
+  year: [
+    "Jan",
+    "Feb",
+    "Mar",
+    "Apr",
+    "May",
+    "Jun",
+    "Jul",
+    "Aug",
+    "Sep",
+    "Oct",
+    "Nov",
+    "Dec",
+  ],
 });
-let currentCategory = ref([
-  "Jan",
-  "Feb",
-  "Mar",
-  "Apr",
-  "May",
-  "Jun",
-  "Jul",
-  "Aug",
-  "Sep",
-  "Oct",
-  "Nov",
-  "Dec",
-]);
+
+// where we are going to save the data
+let data = ref([]);
+// the current category
+let currentCategory = ref("today");
+
+// options of the charts
 const options = computed(() => ({
   chart: {
     type: "line",
@@ -53,18 +90,20 @@ const options = computed(() => ({
     text: "",
   },
   xAxis: {
-    gridLineColor: "transparent",
-    categories: currentCategory,
+    gridLineColor: "transparent", // remove line
+    categories: categories.value[currentCategory.value],
   },
   yAxis: {
     gridLineColor: "transparent",
     title: {
+      // remove title
       text: "",
     },
   },
   plotOptions: {
     line: {
       marker: {
+        // remove points
         enabled: false,
       },
       dataLabels: {
@@ -74,7 +113,6 @@ const options = computed(() => ({
     },
   },
   series: [
-    // data
     {
       name: "line",
       lineWidth: "4px",
@@ -92,22 +130,64 @@ const options = computed(() => ({
   ],
 }));
 
-const setCategory = (e) => {
-  let v = e.target.innerText.toLowerCase();
+// function to generate current month
+function generateMonth() {
+  let currentDate = new Date();
+  let currentMonth = currentDate.getMonth() + 1; // Current month (1 for January, 2 for February etc.)
+  let currentYear = currentDate.getFullYear(); //Current year
+
+  function generateMonthDates() {
+    let monthDates = [];
+    let daysInMonth = new Date(currentYear, currentMonth, 0).getDate();
+
+    for (let i = 1; i <= daysInMonth; i++) {
+      let dayString = ("0" + i).slice(-2); // Format day with 2 digits (01, 02 etc.)
+      let monthString = ("0" + currentMonth).slice(-2); // Format month with two digits (01, 02, ..., 12)
+      monthDates.push(monthString + "/" + dayString);
+    }
+
+    return monthDates;
+  }
+
+  let month = generateMonthDates();
+  categories.value = { ...categories.value, month };
+  return month;
 }
 
-function generateRandomData(number = 7) {
+// function to generate random values depending on current category
+function generateRandomValue(number = 7) {
   let values = [];
-  for (let i = 0; i < number + 1; i++) {
+  for (let j = 0; j < number + 1; j++) {
     values.push(Math.floor(Math.random() * 100));
   }
-  console.log(values);
   data.value = values;
   return values;
 }
 
+// a function to catch shadcn tab change + set category
+const setCategory = (e) => {
+  let v = e.target.innerText.toLowerCase();
+  currentCategory.value = v;
+  switch (v) {
+    case "today":
+      generateRandomValue(24);
+      break;
+    case "week":
+      generateRandomValue(6);
+      break;
+    case "month":
+      generateRandomValue(31);
+      break;
+    case "year":
+      generateRandomValue(11);
+      break;
+  }
+};
+
+// on mounted we generate month and random value
 onMounted(() => {
-  generateRandomData();
+  generateMonth();
+  generateRandomValue(7);
 });
 </script>
 
@@ -132,23 +212,14 @@ onMounted(() => {
           </TabsTrigger>
         </TabsList>
         <TabsContent
+          class="w-[100%]"
           v-for="(item, index) in list"
           :key="index"
           :value="item.title"
         >
-          <highchart :options="options" />
+          <highchart v-if="data.length > 0" :options="options" />
         </TabsContent>
       </Tabs>
-      <!-- <div class="flex items-center gap-3">
-        <div
-          v-for="(item, index) in 3"
-          :key="index"
-          class="w-[120px] h-[36px] bg-neutral-200"
-        ></div>
-      </div>
-      <section>
-        <div class="w-full h-[360px] bg-neutral-200"></div>
-      </section> -->
     </main>
     <footer>
       <div class="flex items-center gap-4">
