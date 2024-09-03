@@ -1,6 +1,5 @@
 <script setup>
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import Chart from "~/components/Chart.vue";
 const loading = ref(false);
 let data = ref([]);
 const list = [
@@ -79,7 +78,7 @@ onMounted(() => {
         <p>Hi, Welcome back Cameron!</p>
         <h1>Dashboard</h1>
       </div>
-      <div class="bg-neutral-200 h-[36px] w-[120px]"></div>
+      <ProductNew />
     </header>
     <main class="grid gap-4">
       <Tabs default-value="Today" @click="setCategory">
