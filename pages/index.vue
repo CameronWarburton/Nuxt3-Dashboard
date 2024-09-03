@@ -107,12 +107,8 @@ onMounted(() => {
       </Tabs>
     </main>
     <footer>
-      <div class="flex items-center gap-4">
-        <div
-          v-for="(item, index) in 3"
-          :key="index"
-          class="w-full h-[260px] bg-neutral-200"
-        ></div>
+      <div class="grid lg:grid-cols-3 gap-4">
+        <Card v-for="(item, index) in cards" :key="index" :card="item"></Card>
       </div>
     </footer>
   </div>
