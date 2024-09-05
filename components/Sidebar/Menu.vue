@@ -12,17 +12,17 @@ const items = ref([
   },
   {
     title: "Account",
-    path: "/account",
+    path: "/",
     icon: "ph:nut-bold",
   },
   {
     title: "Contacts",
-    path: "/contacts",
+    path: "/",
     icon: "mdi:contact-outline",
   },
   {
     title: "Settings",
-    path: "/settings",
+    path: "/",
     icon: "majesticons:settings-cog-line",
   },
 ]);
