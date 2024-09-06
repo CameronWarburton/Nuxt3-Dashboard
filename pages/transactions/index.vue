@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import { h, onMounted, ref } from "vue"
+import { columns } from "./columns";
 
 const data = ref<any>([]);
 
@@ -40,6 +41,6 @@ onMounted(() => {
         <h1>Transactions</h1>
       </div>
     </header>
-    <DataTable :data="data" />
+    <DataTable :columns="columns":data="data" />
   </div>
 </template>

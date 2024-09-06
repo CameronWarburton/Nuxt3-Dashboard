@@ -21,7 +21,7 @@ const props = defineProps(["card"]);
     </CardHeader>
     <CardContent class="flex items-center justify-end border-b pt-0 pb-2 px-4">
       <div class="text-[48px] font-[800]">
-        <span class="text-neutral-300">$</span>
+        <span class="text-neutral-300">£</span>
         <span>{{ card.amount }}</span>
       </div>
     </CardContent>
