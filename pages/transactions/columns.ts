@@ -1,9 +1,17 @@
 import { h } from "vue";
+import Button from "~/components/ui/button/Button.vue";
+import { ArrowUpDown, ChevronDown } from 'lucide-vue-next'
+import type { ColumnDef } from "@tanstack/vue-table";
 
 export const columns: ColumnDef<Payment>[] = [
     {
         accessorKey: "email",
-        header: () => h("div", { class: "text-left" }, "Email"),
+        header: ({ column }: any) => {
+            return h(Button, {
+                variant: 'ghost',
+                onClick: () => column.toggleSorting(column.getIsSorted() === 'asc'),
+            }, () => ['Email', h(ArrowUpDown, { class: 'ml-2 h-4 w-4' })])
+        },
         cell: ({ row }: any) => {
             const email = row.getValue("email");
             
