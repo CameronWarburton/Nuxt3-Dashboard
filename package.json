@@ -29,5 +29,8 @@
     "nuxt-icon": "^1.0.0-beta.7",
     "shadcn-nuxt": "^0.10.4",
     "typescript": "^5.5.4"
-  }
+  },
+  "engines": {
+  "node": ">=16.0.0"
+}
 }
