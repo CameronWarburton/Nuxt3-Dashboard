@@ -1,9 +1,0 @@
-{
-    "build": {
-      "env": {
-        "NPM_VERSION": "8.x",
-        "NODE_VERSION": "16.x"
-      }
-    }
-  }
-  
