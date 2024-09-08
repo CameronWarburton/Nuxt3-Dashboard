@@ -1,5 +1,8 @@
 export default defineNuxtConfig({
   modules: ['@nuxtjs/tailwindcss', 'shadcn-nuxt', "@nuxt/icon", 'nuxt-highcharts'],
+  build: {
+    transpile: ['vue-router', '@vueuse/core']
+  },
 
   shadcn: {
     /**
