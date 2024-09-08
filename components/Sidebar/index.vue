@@ -7,7 +7,6 @@ const open = ref(true);
     <div
       class="z-50 flex items-center justify-between w-full h-full p-4 lg:hidden"
     >
-      <Logo />
       <Icon
         class="z-50 cursor-pointer left-2 top-2"
         size="30"

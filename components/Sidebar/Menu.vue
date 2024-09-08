@@ -33,7 +33,7 @@ const items = ref([
     <header
       class="flex -center gap-2 p-4 hover:scale-[101%] transition cursor-pointer items-center"
     >
-      <Logo />
+      <img class="overflow-hidden rounded-lg w-[45px]" src="@/assets/logo.png" alt="Nuxt-Finance" />
       <p class="font-bold text-black">Nuxt-Finance</p>
     </header>
     <div class="px-4 grow">
